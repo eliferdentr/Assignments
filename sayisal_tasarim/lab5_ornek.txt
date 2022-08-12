@@ -1,0 +1,73 @@
+/*
+input: A, B, C, D
+
+output: x_e
+
+X= AC'D + BD + A'C  -> SOP
+
+AC'D(B+B') = ABC'D + AB'C'D
+BD(A+A')(C+C') =  ABCD + ABC'D + A'BCD + A'BC'D
+A'C(B+B')(D+D') = A'BCD + A'BBCD' + A'B'CD + A'B'CD
+
+X = ABC'D + AB'C'D + ABCD + ABC'D + A'BCD + A'BC'D + A'BCD + A'BBCD' + A'B'CD + A'B'CD
+*/
+module lab51 (x_e, a, b, c, d);
+input a,b,c,d;
+output x_e;
+wire not_a, not_c;
+wire w_1, w_2, w_3;
+not (not_a, a);
+not(not_c, c);
+and (w_1, a, not_c, d);
+and (w_2, b, d);
+and (w_3, not_a, c);
+or (x_e,w_1,w_2,w_3);
+endmodule
+/* 
+input a,b,c,d;
+output x_s;
+
+wire not_a, not_b, not_c, not_d;
+wire w_1, w_2, w_3, w_5,w_6,w_8,w_9,w_10;
+not (not_a, a);
+not (not_b, b);
+not (not_c, c);
+not (not_d, d);
+
+and(w_1, a,b,not_c,d);
+and(w_2, a,not_b,not_c,d);
+and(w_3, a,b,c,d);
+and(w_5, not_a,b,c,d);
+and(w_6, not_a,b,not_c,d);
+and(w_8, not_a,b,c,not_d);
+and(w_9, not_a,not_b,c,d);
+and(w_10, not_a,not_b,c,not_d);
+or(x_s, w_1, w_2, w_3, w_5,w_6,w_8,w_9,w_10)
+
+endmodule
+
+*/
+
+
+
+
+/* 
+testbench -1 //testbenchten önce alt modülleri compile et. her çıkışta aynı değeri alacaklar x_e ve x_s aynı değerleri alacak.
+
+module tb1();
+
+reg a,b,c,d; //girişlerle oynayıp çıkış alacağımız için register
+wire x_lab51, x_sop //girişlerin sonucunu gözlemlemek için çıkış wire
+
+lab51 exp_0(x_e, a, b, c, d);
+sop sop_0(x_sop, a,b,c,d,e);
+
+initial 
+	begin
+		#100
+		a=1'b0; 16 tane olacak
+		
+
+//boş testbenchte clock frekansları 200'den başlatıp 2şer çarparak artırs
+
+*/
